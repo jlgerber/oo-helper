@@ -65,9 +65,11 @@ module.exports = OoHelper =
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'oo-helper:toggle': => @toggle()
     # Register listeners
-    @listener.add '.oo-helper-button', 'click', (event) =>
+    @listener.add '.oo-helper-doit-button', 'click', (event) =>
       console.log "classname " + @ooHelperView.getClassname()
       @createClass.call(@, {classname:@ooHelperView.getClassname(), parentname: @ooHelperView.getParentClassname()})
+    @listener.add '.oo-helper-close-button', 'click', (event) => @hide()
+
     @listener.add '.oo-helper-checkbox', 'click', @checkboxClicked.bind(@)
     @listener.add '.oo-helper-input', 'keypress', (event) => @validateInput event, true
 
@@ -100,7 +102,7 @@ module.exports = OoHelper =
       virtualDestructor: @virtualDestructor
       copyConstructor: @copyConstructor
       assignmentOperator: @assignmentOperator
-      parentClass: @parentClass 
+      parentClass: @parentClass
       parentClassname: parentname.capitalize()
       parentClassnameLower: parentname
     # get directories
@@ -128,11 +130,14 @@ module.exports = OoHelper =
   deactivate: ->
     @modalPanel.destroy()
     @subscriptions.dispose()
-    @uiTestView.destroy()
     @listener.dispose()
 
   serialize: ->
     ooHelperViewState: @ooHelperView.serialize()
+
+  hide: ->
+    if @modalPanel.isVisible()
+      @modalPanel.hide()
 
   toggle: ->
     if @modalPanel.isVisible()
