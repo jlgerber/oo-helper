@@ -1,0 +1,15 @@
+#pragma once
+
+class [name] {
+public:
+  // constructor
+  [name]();
+  // destructor
+  [ ~virtualDestructor ]virtual [ /virtualDestructor ] ~[name]();
+  // copy constructor
+  [~copyConstructor][name](const [name]& other);[/copyConstructor]
+  //assignment operator
+  [~assignmentOperator]
+  [name]& operator=(const [name]& other);
+  [/assignmentOperator]
+};

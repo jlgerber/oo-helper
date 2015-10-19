@@ -1,0 +1,26 @@
+#include "[name].h"
+
+// constructor
+[name]::[name]()[~parentClass]: public [parentName][/parentClass] {
+
+}
+
+// destructor
+[name]::~[name]() {
+
+}
+[~copyConstructor]
+// copy constructor
+[name]::[name](const [name]& other) {
+
+}
+[/copyConstructor]
+
+[~assignmentOperator]
+// assignment operator
+[name]& [name]::operator=(const [name]& rhs) {
+  if (this == &rhs) return this;
+
+  return *this;
+}
+[/assignmentOperator]

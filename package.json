@@ -1,0 +1,21 @@
+{
+  "name": "oo-helper",
+  "main": "./lib/oo-helper",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "keywords": [
+  ],
+  "activationCommands": {
+    "atom-workspace": "oo-helper:toggle"
+  },
+  "repository": "https://github.com/atom/oo-helper",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+    "etch":">=0.1.0",
+    "dom-listener":">=0.1.2",
+    "bracket-templates":">=0.0.8"
+  }
+}
