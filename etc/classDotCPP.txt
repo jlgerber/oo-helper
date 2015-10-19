@@ -1,7 +1,7 @@
-#include "[name].h"
+#include "[nameLower].h"
 
 // constructor
-[name]::[name]()[~parentClass]: public [parentName][/parentClass] {
+[name]::[name]()[~parentClass] : [parentClassname][/parentClass] {
 
 }
 

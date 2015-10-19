@@ -37,7 +37,7 @@ module.exports = OoHelper =
     #console.log (state.ooHelperViewState)
     #console.log("state: " + state)
     unless state?
-      console.log "stat undefined. creating.."
+      console.log "state undefined. creating.."
       state={}
     unless state.ooHelperViewState?
       console.log "state.ooHelperViewState undefined. creating..."
@@ -55,8 +55,7 @@ module.exports = OoHelper =
       state.ooHelperViewState.copyConstructorChecked = atom.config.get('oo-helper.createCopyConstructor')
       @copyConstructor = @setCheckboxState.call(@, state.ooHelperViewState.copyConstructorChecked)
 
-    console.log("calling new OoHelperView with state")
-    console.log state.ooHelperViewState
+
     @ooHelperView = new OoHelperView(state.ooHelperViewState)
     #@modalPanel = atom.workspace.addModalPanel(item: @ooHelperView.getElement(), visible: false)
     @modalPanel = atom.workspace.addModalPanel(item: @ooHelperView, visible: false)
@@ -68,7 +67,7 @@ module.exports = OoHelper =
     # Register listeners
     @listener.add '.oo-helper-button', 'click', (event) =>
       console.log "classname " + @ooHelperView.getClassname()
-      @createClass.call(@,@ooHelperView.getClassname())
+      @createClass.call(@, {classname:@ooHelperView.getClassname(), parentname: @ooHelperView.getParentClassname()})
     @listener.add '.oo-helper-checkbox', 'click', @checkboxClicked.bind(@)
     @listener.add '.oo-helper-input', 'keypress', (event) => @validateInput event, true
 
@@ -85,8 +84,7 @@ module.exports = OoHelper =
   setCheckboxState: (bool) ->
     ret = if bool then "yes" else  null
 
-  createClass: (classname) ->
-    console.log "createclass called with classname:" + classname
+  createClass: ({classname, parentname}) ->
     path = require('path')
     fs = require "fs"
     unless @classDotCpp?
@@ -98,11 +96,13 @@ module.exports = OoHelper =
       @classDotH = fs.readFileSync(cdh)
     data =
       name: classname.capitalize()
+      nameLower: classname
       virtualDestructor: @virtualDestructor
       copyConstructor: @copyConstructor
       assignmentOperator: @assignmentOperator
-    console.log "data"
-    console.log data
+      parentClass: @parentClass 
+      parentClassname: parentname.capitalize()
+      parentClassnameLower: parentname
     # get directories
     paths = atom.project.getPaths()
     if paths.length > 0

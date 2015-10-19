@@ -1,15 +1,20 @@
 #pragma once
+[~parentClass]
+#include "[parentClassnameLower].h"
+[/parentClass]
 
-class [name] {
+class [name][~parentClass]: public [parentClassname][/parentClass] {
 public:
   // constructor
   [name]();
   // destructor
-  [ ~virtualDestructor ]virtual [ /virtualDestructor ] ~[name]();
+  [ ~virtualDestructor ]virtual [ /virtualDestructor ]~[name]();
+[~copyConstructor]
   // copy constructor
-  [~copyConstructor][name](const [name]& other);[/copyConstructor]
+  [name](const [name]& other);
+[/copyConstructor]
+[~assignmentOperator]
   //assignment operator
-  [~assignmentOperator]
   [name]& operator=(const [name]& other);
-  [/assignmentOperator]
+[/assignmentOperator]
 };
